@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday My Love 💖</title>
+<style>
+html, body {
+margin: 0;
+padding: 0;
+ height: 100%;
+ overflow: hidden;
+ background: linear-gradient(to right, #ffe0ec, #ffd5f3);
+ font-family: 'Segoe UI', sans-serif;
+ }
+
+ h1 {
+ text-align: center;
+ margin-top: 40px;
+font-size: 3em;
+color: #c71585;
+text-shadow: 2px 2px #ffb6c1;
+animation: fadeIn 2s ease-in-out;
+ z-index: 10;
+position: relative;
+ }
+
+.envelope {
+ font-size: 6rem;
+ position: absolute;
+ top: -100px;
+ left: 50%;
+ transform: translateX(-50%);
+ animation: drop 2s ease-in forwards;
+z-index: 10;
+ }
+
+.letter {
+ opacity: 0;
+ margin: 20px auto 0;
+padding: 20px 30px;
+background: #fff0f5;
+border: 2px solid #ff69b4;
+border-radius: 12px;
+width: 70%;
+max-width: 600px;
+text-align: center;
+color: #d63384;
+font-size: 1.2rem;
+line-height: 1.6;
+box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+position: relative;
+z-index: 10;
+transition: opacity 1s ease-in-out;
+}
+
+@keyframes drop {
+to {
+top: 45%;
+}
+}
+
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+canvas {
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1;
+}
+
+ .heart {
+position: absolute;
+bottom: 20px;
+font-size: 2rem;
+animation: pulse 1s infinite;
+width: 100%;
+text-align: center;
+z-index: 10;
+}
+
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.2); }
+100% { transform: scale(1); }
+}
+
+/* Optional play button */
+#playBtn {
+position: absolute;
+top: 10px;
+right: 10px;
+background: #ff69b4;
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+cursor: pointer;
+z-index: 20;
+font-size: 1rem;
+box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+ }
+</style>
+</head>
+<body>
+
+<h1> Happy Birthday My Love 💗</h1>
+
+<div class="envelope" id="envelope">💌</div>
+
+ <div class="letter" id="letter1">
+ My Dearest Love,<br><br>
+ On this special day, I just want to remind you how incredibly amazing you are. Every moment with you is a gift I’ll always treasure. Thank you for being the light in my life. I hope your birthday is as beautiful and unforgettable as you are. As long as I’m here, there will always be someone who will love you and be proud of you. 💖<br><br>
+ I want you to know that no matter what happens, you'll always have someone cheering for you, believing in you, and standing by your side.<br><br>
+
+</div>
+
+ <div class="letter" id="letter2">
+Even if we’re not the same age and we know we can’t be together the way others expect us to be, I accept you wholeheartedly. 💌<br><br>
+ I’ll always be here for you — as your older brother, your best friend, and your lover. You're never alone. I love you endlessly. 💕<br><br>
+-darwin
+ </div>
+
+ <div class="heart"></div>
+
+ <!-- ✅ Background music (fixed) -->
+ <audio id="bgMusic" autoplay loop flex>
+ <source src="The 1975 - About You (Official)(M4A_128K).mp3" type="audio/mpeg">
+ Your browser does not support the audio element.
+</audio>
+
+ <!-- ✅ Optional "Play Music" button if autoplay fails -->
+<button id="playBtn" onclick="document.getElementById('bgMusic').play()">🔊 Play Music</button>
+
+<!-- Hearts background -->
+ <canvas id="hearts"></canvas>
+
+ <script>
+    const envelope = document.getElementById('envelope');
+    const letter1 = document.getElementById('letter1');
+    const letter2 = document.getElementById('letter2');
+    const music = document.getElementById('bgMusic');
+
+    // Auto-reveal letter after drop animation
+    window.addEventListener('load', () => {
+      // Wait for drop animation (3s), then show letter1
+      setTimeout(() => {
+        letter1.style.opacity = '1';
+        music.volume = 0.5;
+        try {
+          music.play();
+} catch (err) {
+console.warn('Autoplay was blocked. User interaction may be required.');
+}
+}, 3200);
+
+// Show letter2 after 7 seconds more
+setTimeout(() => {
+letter1.style.opacity = '0';
+setTimeout(() => {
+letter2.style.opacity = '1';
+}, 1000);
+}, 10000);
+});
+
+ // Heart particles
+const canvas = document.getElementById('hearts');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+
+const hearts = [];
+for (let i = 0; i < 100; i++) {
+hearts.push({
+x: Math.random() * w,
+y: Math.random() * h,
+size: Math.random() * 5 + 2,
+ speed: Math.random() * 1 + 0.5,
+opacity: Math.random(),
+color: `rgba(255, 105, 180, ${Math.random()})`
+});
+ }
+
+ function drawHearts() {
+ ctx.clearRect(0, 0, w, h);
+ for (let heart of hearts) {
+ctx.beginPath();
+ctx.arc(heart.x, heart.y, heart.size, 0, Math.PI * 2);
+ctx.fillStyle = heart.color;
+ctx.fill();
+
+ heart.y += heart.speed;
+ if (heart.y > h) {
+ heart.y = -10;
+ heart.x = Math.random() * w;
+}
+ }
+requestAnimationFrame(drawHearts);
+ }
+
+ drawHearts();
+
+ window.addEventListener('resize', () => {
+w = canvas.width = window.innerWidth;
+ h = canvas.height = window.innerHeight;
+ });
+</script>
+
+</body>
+</html>
